@@ -1,7 +1,8 @@
-import { useSearchParams } from "react-router-dom";
+import { useSearchParams, Link } from "react-router-dom";
 import { RecipeCard } from "../components/RecipeCard";
 import { SearchBox } from "../components/SearchBox";
 import { useSearchRecipes } from "../hooks/useSearchRecipes";
+import { Home } from "lucide-react"; // Import Home icon
 
 export default function SearchResults() {
   const [searchParams] = useSearchParams();
@@ -11,8 +12,17 @@ export default function SearchResults() {
   return (
     <div className="min-h-screen bg-gray-50">
       <div className="max-w-3xl mx-auto px-4 py-8">
-        <div className="mb-8">
-          <SearchBox />
+        <div className="flex items-center gap-4 mb-8">
+          <Link 
+            to="/" 
+            className="p-2 hover:bg-white rounded-lg transition-colors duration-200 group"
+            title="Go to homepage"
+          >
+            <Home className="w-5 h-5 text-gray-500 group-hover:text-blue-500" />
+          </Link>
+          <div className="flex-1">
+            <SearchBox />
+          </div>
         </div>
 
         <div className="bg-white rounded-lg shadow-sm p-6">

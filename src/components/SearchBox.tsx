@@ -66,13 +66,13 @@ export function SearchBox() {
               key={suggestion.id}
               className="px-4 py-2 hover:bg-gray-50 cursor-pointer transition-colors"
               onClick={() => {
-                setQuery(suggestion.result);  // Changed from title to result
-                handleSearch(suggestion.result);  // Changed from title to result
+                setQuery(suggestion.result);  
+                handleSearch(suggestion.result);
               }}
             >
               <div className="flex items-center gap-2">
                 <Search className="w-4 h-4 text-gray-400" />
-                <span>{suggestion.result}</span>  {/* Changed from title to result */}
+                <span>{suggestion.result}</span>
               </div>
             </div>
           ))}
