@@ -1,6 +1,7 @@
-import { useState, useEffect, useRef } from 'react';
 import { Search } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import { useDebounce } from '../hooks/useDebounce';
+import { useEffect, useRef, useState } from 'react';
 
 interface Suggestion {
   id: string;
@@ -8,25 +9,26 @@ interface Suggestion {
 }
 
 export function SearchBox() {
-  const [query, setQuery] = useState('');
+  const [debouncedQuery, query, setQuery] = useDebounce('', 300); // 300ms debounce
   const [suggestions, setSuggestions] = useState<Suggestion[]>([]);
   const [showSuggestions, setShowSuggestions] = useState(false);
   const navigate = useNavigate();
   const searchBoxRef = useRef<HTMLDivElement>(null);
 
+  // Now using debouncedQuery instead of query for API calls
   useEffect(() => {
-    if (query.length > 2) {
+    if (debouncedQuery.length > 2) {
       // Replace this with actual API call
       const mockSuggestions = [
-        { id: '1', title: query + ' soup' },
-        { id: '2', title: query + ' salad' },
-        { id: '3', title: query + ' pasta' },
+        { id: '1', title: debouncedQuery + ' soup' },
+        { id: '2', title: debouncedQuery + ' salad' },
+        { id: '3', title: debouncedQuery + ' pasta' },
       ];
       setSuggestions(mockSuggestions);
     } else {
       setSuggestions([]);
     }
-  }, [query]);
+  }, [debouncedQuery]); // Using debouncedQuery as dependency
 
   const handleSearch = (searchQuery: string) => {
     if (searchQuery.trim()) {
@@ -39,7 +41,7 @@ export function SearchBox() {
       <div className="relative">
         <input
           type="text"
-          value={query}
+          value={query} 
           onChange={(e) => setQuery(e.target.value)}
           onFocus={() => setShowSuggestions(true)}
           placeholder="Search for food recipes..."
