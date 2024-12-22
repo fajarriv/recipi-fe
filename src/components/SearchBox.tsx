@@ -1,12 +1,15 @@
 // src/components/SearchBox.tsx
 import { Search } from 'lucide-react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import { useDebounce } from '../hooks/useDebounce';
 import { useEffect, useRef, useState } from 'react';
 import { useSuggestions } from '../hooks/useSuggestions';
 
 export function SearchBox() {
-  const [debouncedQuery, query, setQuery] = useDebounce('', 300);
+  const [searchParams] = useSearchParams();
+  const initialQuery = searchParams.get('q') || '';
+
+  const [debouncedQuery, query, setQuery] = useDebounce(initialQuery, 300);
   const [showSuggestions, setShowSuggestions] = useState(false);
   const navigate = useNavigate();
   const searchBoxRef = useRef<HTMLDivElement>(null);
