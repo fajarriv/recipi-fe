@@ -1,14 +1,14 @@
 import { useParams, Link, useSearchParams } from 'react-router-dom';
 import { ArrowLeft, Clock } from 'lucide-react';
-import { useSearchRecipes } from '../hooks/useSearchRecipes';
+import { useRecipeDetail } from '../hooks/useRecipeDetail';
 
 export default function RecipeDetail() {
   const { id } = useParams();
   const [searchParams] = useSearchParams();
   const query = searchParams.get('q') || '';
-  const { data: recipes, isLoading, error } = useSearchRecipes(query);
 
-  const recipe = recipes?.find(r => r.id === id);
+  const { data: recipe, isLoading, error } = useRecipeDetail(id||'');
+
 
   if (isLoading) {
     return (

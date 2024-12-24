@@ -1,9 +1,9 @@
 import { Clock } from "lucide-react";
-import { Recipe } from "../types";
+import { RecipePreview } from "../types";
 import { Link, useSearchParams } from "react-router-dom";
 
 interface RecipeCardProps {
-  recipe: Recipe;
+  recipe: RecipePreview;
 }
 
 export function RecipeCard({ recipe }: RecipeCardProps) {
@@ -22,7 +22,7 @@ export function RecipeCard({ recipe }: RecipeCardProps) {
               <span>{recipe.minutes} mins</span>
             </div>
             <div>{recipe.n_steps} steps</div>
-            <div>• {recipe.ingredients.length} ingredients</div>
+            <div>• {recipe.n_ingredients} ingredients</div>
           </div>
         </div>
       </div>
